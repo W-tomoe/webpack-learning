@@ -1,35 +1,43 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const glob = require('glob-all') // glob-all用于处理多路径文件，使用purifycss的时候要用到glob.sync方法。 
-const PurifyCSSPlugin = require('purifycss-webpack') // css treeShaking 用的，打包时删除没有用的css
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-
-const config = {
+const baseConfig = {
     entry: {
-        app: './src/app.js'
+        main: './src/main.js'
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, '../dist'),
         // publicPath: '/dist/',
         filename: 'static/js/[name].bundle.js'
     },
-    devServer: {
-        host:'localhost',
-        port: 8089,
-        inline: true,
-        hot: true,
+    resolve: {
+        extensions: ['.js', '.vue', '.json'],
+        alias: {
+            'vue$': 'vue/dist/vue.esm.js',
+            '@': path.resolve('src'),
+            'components': path.resolve('src/components'),
+            'pages': path.resolve('src/pages')
+        }
     },
     module: {
         rules: [
             {
+                test: /\.vue$/,
+                use: [
+                    { loader: 'vue-loader'}
+                ]
+            },
+            {
                 test: /\.less$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader,
+                        loader:'vue-style-loader' , 
                         options: {
                             // publicPath:path.join(__dirname, 'dist/static/css') 
                         }
@@ -76,7 +84,7 @@ const config = {
                         loader: 'url-loader',
                         options: {
                             name: path.posix.join('static','/fonts/[name][hash:5].[ext]'),
-                            limit: 1000,
+                            limit: 10000,
                         }
                     }
                 ]
@@ -84,32 +92,25 @@ const config = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin([// 复制资源文件夹到打包文件夹
+            {
+                from: path.resolve(__dirname, '../static'),
+                to: '/',
+                ignore: ['*.']
+            }
+        ]),
+        new HtmlWebpackPlugin({ // 生成html文件
             template: 'index.html',
-            title: 'index.html',
+            filename: 'index.html',
             inject: true
         }),
-        new CleanWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new MiniCssExtractPlugin({
-            filename:'static/css/[name].min.css',
-            chunkFilename: '[id].min.css'
-        }),
-        new PurifyCSSPlugin({ // css treeShaking
-            paths: glob.sync([
-                './*.html', // 处理根目录下的html
-                './src/*.js' // 处理src里的js文件
-            ])
-        })
-    ],
-    /* optimizetion: {
-
-    } */
+        new webpack.HotModuleReplacementPlugin(), // 热重载
+        new VueLoaderPlugin()
+    ]
 }
 
 
-module.exports = (env, argv) => {
-    console.log(argv.mode)
-    return config
-}
 
+
+module.exports = baseConfig
