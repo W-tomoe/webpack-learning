@@ -1,0 +1,32 @@
+body {
+  padding: 0;
+  margin: 0;
+  background: #999;
+}
+#app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+}
+.box {
+  height: 200px;
+  width: 200px;
+  background: #999;
+  border-radius: 4px;
+}
+a {
+  color: red;
+  font-size: 40px;
+}
+

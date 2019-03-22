@@ -1,0 +1,48 @@
+body {
+  font-size: 20px;
+}
+
+.bigBox {
+  width: 400px;
+  height: 400px;
+  background: #999999;
+  color: #000;
+  border: 5xp solid #ddd;
+}
+
+.bigBox > div {
+  height: 128px;
+  width: 128px;
+  float: left;
+}
+
+.bigBox .ani1 {
+  background-image: url(static/images/spritec379f.png);
+  background-position: 0px 0px;
+  background-size: 256px 256px;
+}
+
+.bigBox .ani2 {
+  background-image: url(static/images/spritec379f.png);
+  background-position: -128px 0px;
+  background-size: 256px 256px;
+}
+
+.bigBox .ani3 {
+  background-image: url(static/images/spritec379f.png);
+  background-position: 0px -128px;
+  background-size: 256px 256px;
+}
+
+.bigBox .ani4 {
+  background-image: url(static/images/spritec379f.png);
+  background-position: -128px -128px;
+  background-size: 256px 256px;
+}
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url(static/fonts/fontawesome-webfont674f5.eot?#iefix&v=4.7.0) format('embedded-opentype'), url(static/fonts/fontawesome-webfontaf7ae.woff2) format('woff2'), url(static/fonts/fontawesome-webfontfee66.woff) format('woff'), url(static/fonts/fontawesome-webfontb0687.ttf) format('truetype'), url(static/fonts/fontawesome-webfont912ec.svg#fontawesomeregular) format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
