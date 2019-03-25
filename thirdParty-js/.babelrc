@@ -7,5 +7,7 @@
             }
         ]
     ],
-    "plugins": []
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import" //babel import()动态加载语法插件
+    ]
 }

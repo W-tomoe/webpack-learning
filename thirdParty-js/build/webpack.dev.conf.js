@@ -14,12 +14,37 @@ const devCofig = merge(baseConfig, {
         port: 8099,
         hot: true
     },
-    optimization: {
-        runtimeChunk: true
+    module: {
+        rules: [
+            {
+                test: /\.less$/,
+                use: [
+                    {
+                        loader:'vue-style-loader' , 
+                        options: {
+                            // publicPath:path.join(__dirname, 'dist/static/css') 
+                        }
+                   `` },
+                    {
+                        loader: 'css-loader'
+                        
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'less-loader'
+                    }
+                ]
+            },
+        ]
     },
     plugins:[
         
     ],
+    optimization: {
+        runtimeChunk: true
+    },
 })
 
 

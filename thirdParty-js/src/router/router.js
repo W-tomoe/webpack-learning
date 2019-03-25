@@ -1,18 +1,18 @@
-import Router from 'vue-router'
-import Vue from 'vue'
+// import Router from 'vue-router'
+// import Vue from 'vue'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-import app from '../App.vue'
+
 import index from 'pages/index.vue'
 
 const routes = [
-    {path:'/',component: app, 
+    {path:'/',component: index
 
     },
-    {path:'/index', component: index}
+    // {path:'/index', component: index}
 ]
 
-export default new Router({
-    routes
+export default new VueRouter({
+    routes: routes
 })

@@ -28,7 +28,7 @@ module.exports = {
             {
                 test: /.less$/,
                 use: [
-                    { 
+                    {
                         loader:'style-loader' ,
                         options: {
                             // insertInto:'#app',

@@ -22,11 +22,9 @@ const prodConfig = merge(baseConfig, {
                 test: /\.less$/,
                 use: [
                     {
-                        loader:MiniCssExtractPlugin.loader, //
-                        options: {
-                            // publicPath:path.join(__dirname, 'dist/static/css') 
-                        }
+                        loader:MiniCssExtractPlugin.loader,
                     },
+              
                     {
                         loader: 'css-loader'
                         
@@ -40,7 +38,7 @@ const prodConfig = merge(baseConfig, {
                 ]
             }
         ]
-    },  
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': config.build
@@ -52,20 +50,16 @@ const prodConfig = merge(baseConfig, {
             ])
         }),
         new MiniCssExtractPlugin({
-            filename:'static/css/[name].min.css',
-            chunkFilename: 'static/css/[id].min.css'
-        })
+            filename:'static/css/[name].min.css'
+        }),
     ],
     optimization: {
-        minimize: false,
-        runtimeChunk: true,
-        
         runtimeChunk: true,
         splitChunks: {
             minSize:0,
             name: true,
             cacheGroups: {
-                vue: {
+                'vue': {
                     test: /vue/,
                     chunks: "initial"
                 }

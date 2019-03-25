@@ -7,17 +7,19 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+const isProduction = process.env.NODE_ENV = '"development"'
+
 const baseConfig = {
     entry: {
-        main: './src/main.js'
+        app: './src/app.js'
     },
     output: {
         path: path.resolve(__dirname, '../dist'),
-        // publicPath: '/dist/',
+        publicPath: './',
         filename: 'static/js/[name].bundle.js'
     },
     resolve: {
-        extensions: ['.js', '.vue', '.json'],
+        extensions: [' ', '.js', '.json', '.vue', '.less', '.css'], // 扩展名-引入文件不用加后缀
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
             '@': path.resolve('src'),
@@ -25,33 +27,24 @@ const baseConfig = {
             'pages': path.resolve('src/pages')
         }
     },
+    externals: {  // cdn引入第三方js库
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        //'vuex': 'Vuex',
+        // 'axios': 'axios',
+        // 'echarts': 'echarts'
+    },
+    /* watchOptions: {
+        ignored: /node_modules/,
+        aggregateTimeout: 300,//防止重复保存频繁重新编译,300ms内重复保存不打包
+        poll: 1000  //每秒询问的文件变更的次数
+    }, */
     module: {
         rules: [
             {
                 test: /\.vue$/,
                 use: [
                     { loader: 'vue-loader'}
-                ]
-            },
-            {
-                test: /\.less$/,
-                use: [
-                    {
-                        loader:'vue-style-loader' , 
-                        options: {
-                            // publicPath:path.join(__dirname, 'dist/static/css') 
-                        }
-                    },
-                    {
-                        loader: 'css-loader'
-                        
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    },
-                    {
-                        loader: 'less-loader'
-                    }
                 ]
             },
             {
@@ -70,8 +63,6 @@ const baseConfig = {
                     loader: 'url-loader',
                     options: {
                         name:  path.posix.join('static','/images/[name][hash:5].[ext]'),
-                        // publicPath: '../images',
-                        // outputPath: '/static/images',
                         limit: 10000,
                     }
                   }
@@ -107,7 +98,7 @@ const baseConfig = {
         }),
         new webpack.HotModuleReplacementPlugin(), // 热重载
         new VueLoaderPlugin()
-    ]
+    ],
 }
 
 

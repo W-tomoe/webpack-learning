@@ -1,6 +1,6 @@
 <template>
-    <div>
-        my webpack vue project
+    <div class="page-container">
+        hello vue
     </div>
 </template>
 
@@ -12,5 +12,7 @@ export default {
 
 
 <style lang="less" scoped>
-
+.page-container{
+    font-size: 50px;
+}
 </style>
